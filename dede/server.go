@@ -110,6 +110,7 @@ func InitServer(dd string, pp int) {
 
 	registerTerminalHandler(router)
 	registerFakeMouseHandler(router)
+	registerKeyboardGrabHandler(router)
 	registerVideoHandler(router)
 	registerTextHandler(router)
 }

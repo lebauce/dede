@@ -1,0 +1,7 @@
+#dede-keyboard-grab {
+  position: absolute;
+  z-index: 9999999;
+  width: 19px;
+  height: 32px;
+  background-image: url(/statics/img/mouse-pointer.png);
+}

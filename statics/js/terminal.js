@@ -24,19 +24,28 @@ $('#dede-terminal-record').change(function() {
   DedeTerminal.toggleRecord();
 });
 
-_DedeTerminal = function(id, cols, rows, delay) {
+_DedeTerminal = function(opts) {
   var self = this;
 
-  this.id = id;
-  this.cols = parseInt(cols) || 80;
-  this.rows = parseInt(rows) || 40;
-  this.delay = parseInt(delay) || 100;
+  this.id = opts.id;
+  this.cols = parseInt(opts.cols) || 80;
+  this.rows = parseInt(opts.rows) || 40;
+  this.delay = parseInt(opts.delay) || 100;
   this.recording = false;
+  this.location = opts.location || window.location.host;
+  this.debug = opts.debug || false;
+  this.element = opts.element || 'dede-terminal';
 
-  var container = document.getElementById('dede-terminal');
+  if (opts.create) {
+    $.ajax({
+       url : 'http://' + self.location + '/terminal/' + this.id
+    });
+  }
+
+  var container = document.getElementById(this.element);
   var term = new Terminal({
     geometry: [this.cols, this.rows],
-    //debug: true
+    debug: this.debug
   });
   term.open(container);
   term.fit();
@@ -46,7 +55,7 @@ _DedeTerminal = function(id, cols, rows, delay) {
 
   var websocket;
   function wsConnect() {
-    websocket = new WebSocket("ws://" + location.host + "/terminal/" + id + "/ws?cols=" + cols);
+    websocket = new WebSocket("ws://" + self.location + "/terminal/" + self.id + "/ws?cols=" + self.cols);
     websocket.onopen = function(evt) {
       term.attach(websocket);
     };

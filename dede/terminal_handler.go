@@ -130,6 +130,7 @@ func (t *terminalHanlder) terminalIndex(w http.ResponseWriter, r *http.Request) 
 	asset := statics.MustAsset("statics/terminal.html")
 
 	w.Header().Set("Content-Type", "text/html; charset=UTF-8")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(http.StatusOK)
 
 	width := r.FormValue("width")

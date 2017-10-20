@@ -34,7 +34,12 @@
     <script>
       $("#dede-terminal").width({{ .Width }});
       $("#dede-terminal").height({{ .Height }});
-      DedeTerminal = new _DedeTerminal("{{ .ID }}", {{ .Cols }}, {{ .Rows }}, {{ .Delay }});
+      DedeTerminal = new _DedeTerminal({
+        id: "{{ .ID }}",
+        cols: {{ .Cols }},
+        rows: {{ .Rows }},
+        delay: {{ .Delay }}
+      });
     </script>
   </body>
 </html>
